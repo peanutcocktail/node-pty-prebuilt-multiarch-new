@@ -42,6 +42,9 @@
           'libraries': [
             'shlwapi.lib'
           ],
+          'defines': [
+            'NOMINMAX'
+          ],
         },
         {
           'target_name': 'conpty_console_list',
@@ -50,6 +53,9 @@
           ],
           'sources' : [
             'src/win/conpty_console_list.cc'
+          ],
+          'defines': [
+            'NOMINMAX'
           ],
         },
         {
@@ -70,6 +76,9 @@
           ],
           'libraries': [
             'shlwapi.lib'
+          ],
+          'defines': [
+            'NOMINMAX'
           ],
         }
       ]

@@ -244,6 +244,20 @@
     "target": "28.0.0-alpha.1"
   },
   {
+    "abi": "121",
+    "future": false,
+    "lts": false,
+    "runtime": "electron",
+    "target": "29.0.0-alpha.1"
+  },
+  {
+    "abi": "123",
+    "future": true,
+    "lts": false,
+    "runtime": "electron",
+    "target": "30.0.0-alpha.1"
+  },
+  {
     "runtime": "node",
     "target": "20.0.0",
     "lts": false,
