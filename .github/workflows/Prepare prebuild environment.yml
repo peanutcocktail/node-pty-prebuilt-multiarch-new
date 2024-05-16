@@ -37,7 +37,7 @@ jobs:
 
       - uses: actions/checkout@v4
       - name: Create Branch
-        uses: peterjgrainger/action-create-branch@latest
+        uses: peterjgrainger/action-create-branch@v3.0.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
