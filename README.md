@@ -41,7 +41,7 @@ If a corresponding prebuilt package is not found, `node-gyp` is invoked to build
 | Linux (musl)  | x64, armv6, aarch64       |
 | Windows       | ia32, x64                 |
 
-We only provide prebuilt binaries for Node.js 10 and Electron 5.0.0 or higher.
+We only provide prebuilt binaries for Node.js 16 and Electron 16.0.0 or higher.  Pls note that prebuilds for Electron 28 are not supplied due to build issues.
 
 ## Build / Package
 
