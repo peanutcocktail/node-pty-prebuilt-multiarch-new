@@ -14,12 +14,13 @@ on:
         type: boolean
 
 env:
-  oldNodeBuildTargets: -t 10.0.0 -t 11.0.0 -t 12.0.0 -t 13.0.0 -t 14.0.0 -t 15.0.0 -t 16.0.0 -t 17.0.1 -t 18.0.0
-  nodeBuildTargets: -t 19.0.0 -t 20.0.0 -t 21.0.0 -t 22.0.0
-  oldElectronBuildTargets: -t 5.0.0 -t 6.0.0 -t 7.0.0 -t 8.0.0 -t 9.0.0 -t 10.0.0 -t 11.0.0 -t 12.0.0 -t 13.0.0 -t 14.0.2 -t 15.0.0 -t 16.0.0 -t 17.0.0 -t 18.0.0 -t 19.0.0
-  electronBuildTargets: -t 20.0.0 -t 21.0.0 -t 22.0.0 -t 23.0.0 -t 24.0.0 -t 25.0.0 -t 26.0.0 -t 27.0.0 -t 28.0.0 -t 29.0.0
-  winIA32nodeBuildTargets: -t 10.0.0 -t 11.0.0 -t 12.0.0 -t 13.0.0 -t 14.0.0 -t 15.0.0 -t 16.0.0 -t 17.0.1
-  winIA32electronBuildTargets: -t 20.0.0 -t 21.0.0 -t 22.0.0 -t 23.0.0 -t 24.0.0 -t 25.0.0 -t 26.0.0 -t 27.0.0 -t 28.0.0 -t 29.0.0
+  # Order reversed so newer versions are built first - Add new versions to the front ( fail fast)
+  oldNodeBuildTargets: -t 18.0.0 -t 17.0.1 -t 16.0.0 -t 15.0.0 -t 14.0.0 -t 13.0.0 -t 12.0.0 -t 11.0.0 -t 10.0.0
+  nodeBuildTargets: -t 22.0.0 -t 21.0.0 -t 20.0.0 -t 19.0.0
+  oldElectronBuildTargets: -t 19.0.0 -t 18.0.0 -t 17.0.0 -t 16.0.0 -t 15.0.0 -t 14.0.2 -t 13.0.0 -t 12.0.0 -t 11.0.0 -t 10.0.0 -t 9.0.0 -t 8.0.0 -t 7.0.0 -t 6.0.0 -t 5.0.0
+  electronBuildTargets: -t 29.0.0 -t 28.0.0 -t 27.0.0 -t 26.0.0 -t 25.0.0 -t 24.0.0 -t 23.0.0 -t 22.0.0 -t 21.0.0 -t 20.0.0
+  winIA32nodeBuildTargets: -t 17.0.1 -t 16.0.0 -t 15.0.0 -t 14.0.0 -t 13.0.0 -t 12.0.0 -t 11.0.0 -t 10.0.0
+  winIA32electronBuildTargets: -t 29.0.0 -t 28.0.0 -t 27.0.0 -t 26.0.0 -t 25.0.0 -t 24.0.0 -t 23.0.0 -t 22.0.0 -t 21.0.0 -t 20.0.0
   ReleasePrebuildCount: 392
   ReleasePrebuildifyCount: 84
 
@@ -36,11 +37,11 @@ jobs:
 
       - uses: actions/checkout@v4
       - name: Create Branch
-        uses: peterjgrainger/action-create-branch@v2.2.0
+        uses: peterjgrainger/action-create-branch@v3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version: lts/*
 
@@ -219,9 +220,9 @@ jobs:
         with:
           ref: "release-candidate"
 
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
-          node-version: 18.x
+          node-version: lts/*
 
       - name: get-npm-version
         if: runner.os == 'Linux'
@@ -246,9 +247,9 @@ jobs:
           echo "BuildNewCMD=\"./.prebuild/build.sh .prebuild/prebuild.js ${nodeBuildTargets} && \
             ./.prebuild/build.sh .prebuild/prebuildify.js ${nodeBuildTargets}&& \
             ./.prebuild/build.sh .prebuild/electron.js ${electronBuildTargets}\"" >> $GITHUB_ENV
-          echo "BuildAllCMD=\"./.prebuild/build.sh .prebuild/prebuild.js ${oldNodeBuildTargets} ${nodeBuildTargets} && \
-            ./.prebuild/build.sh .prebuild/prebuildify.js ${oldNodeBuildTargets} ${nodeBuildTargets} && \
-            ./.prebuild/build.sh .prebuild/electron.js ${oldElectronBuildTargets} ${electronBuildTargets}\"" >> $GITHUB_ENV
+          echo "BuildAllCMD=\"./.prebuild/build.sh .prebuild/prebuild.js ${nodeBuildTargets} ${oldNodeBuildTargets} && \
+            ./.prebuild/build.sh .prebuild/prebuildify.js ${nodeBuildTargets} ${oldNodeBuildTargets} && \
+            ./.prebuild/build.sh .prebuild/electron.js ${electronBuildTargets} ${oldElectronBuildTargets}\"" >> $GITHUB_ENV
           echo "CMD=${{ matrix.CMD }}" >> $GITHUB_ENV
 
       - name: Linux - Prep Build EXECCMD = ${{ env.CMD }}
@@ -274,10 +275,10 @@ jobs:
       - name: macOS - Prebuild Binaries
         if: runner.os == 'macOS'
         run: |
-          python3 -m pip install packaging setuptools
+          python3 -m pip --break-system-packages install packaging setuptools
           npm ci --ignore-scripts
-          env JOBS=max node .prebuild/prebuild.js ${oldNodeBuildTargets} ${nodeBuildTargets}
-          env JOBS=max node .prebuild/electron.js ${oldElectronBuildTargets} ${electronBuildTargets}
+          env JOBS=max node .prebuild/prebuild.js ${nodeBuildTargets}  ${oldNodeBuildTargets}
+          env JOBS=max node .prebuild/electron.js${electronBuildTargets} ${oldElectronBuildTargets} 
       #       buildify doesn't work on Mac due to missing spawn_helper
       #      env JOBS=max node .prebuild/buildify.js
 
@@ -289,15 +290,15 @@ jobs:
         run: |
           npm ci --ignore-scripts
           env JOBS=max node_modules/.bin/prebuild ${winIA32nodeBuildTargets}  --include-regex "\.(node|exe|dll|pdb)" --arch ${{ matrix.arch }}
-          env JOBS=max node_modules/.bin/prebuild ${oldElectronBuildTargets} ${winIA32electronBuildTargets} --include-regex "\.(node|exe|dll|pdb)" -r electron -a ${{ matrix.arch }}
+          env JOBS=max node_modules/.bin/prebuild ${winIA32electronBuildTargets}  ${oldElectronBuildTargets} --include-regex "\.(node|exe|dll|pdb)" -r electron -a ${{ matrix.arch }}
 
       - name: Windows x64 - Prebuild Binaries
         if: ${{ (runner.os == 'Windows') && (matrix.arch == 'x64') }}
         shell: bash
         run: |
           npm ci --ignore-scripts
-          env JOBS=max node_modules/.bin/prebuild ${oldNodeBuildTargets} ${nodeBuildTargets} --include-regex "\.(node|exe|dll|pdb)" --arch ${{ matrix.arch }}
-          env JOBS=max node_modules/.bin/prebuild ${oldElectronBuildTargets} ${electronBuildTargets} --include-regex "\.(node|exe|dll|pdb)" -r electron --arch ${{ matrix.arch }}
+          env JOBS=max node_modules/.bin/prebuild ${nodeBuildTargets} ${oldNodeBuildTargets} --include-regex "\.(node|exe|dll|pdb)" --arch ${{ matrix.arch }}
+          env JOBS=max node_modules/.bin/prebuild ${electronBuildTargets} ${oldElectronBuildTargets} --include-regex "\.(node|exe|dll|pdb)" -r electron --arch ${{ matrix.arch }}
 
       # Start of Checks
 
@@ -346,7 +347,7 @@ jobs:
           ref: "release-candidate"
 
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: lts/*
           registry-url: "https://registry.npmjs.org"
