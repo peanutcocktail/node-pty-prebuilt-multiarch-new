@@ -14,7 +14,7 @@ on:
         type: boolean
 
 env:
-  # Order reversed so newer versions are built first - Add new versions to the front ( fail fast)
+  # Order reversed so newer versions are built first - Add new versions to the front (fail fast)
   oldNodeBuildTargets: -t 18.0.0 -t 17.0.1 -t 16.0.0 -t 15.0.0 -t 14.0.0 -t 13.0.0 -t 12.0.0 -t 11.0.0 -t 10.0.0
   nodeBuildTargets: -t 22.0.0 -t 21.0.0 -t 20.0.0 -t 19.0.0
   oldElectronBuildTargets: -t 19.0.0 -t 18.0.0 -t 17.0.0 -t 16.0.0 -t 15.0.0 -t 14.0.2 -t 13.0.0 -t 12.0.0 -t 11.0.0 -t 10.0.0 -t 9.0.0 -t 8.0.0 -t 7.0.0 -t 6.0.0 -t 5.0.0
@@ -37,7 +37,7 @@ jobs:
 
       - uses: actions/checkout@v4
       - name: Create Branch
-        uses: peterjgrainger/action-create-branch@v3
+        uses: peterjgrainger/action-create-branch@latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
