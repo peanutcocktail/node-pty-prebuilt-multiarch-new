@@ -277,7 +277,7 @@ jobs:
         if: runner.os == 'macOS'
         run: |
           brew install pipx
-          python3 -m pipx install packaging setuptools
+          pipx install packaging setuptools
           npm ci --ignore-scripts
           env JOBS=max node .prebuild/prebuild.js ${nodeBuildTargets}  ${oldNodeBuildTargets}
           env JOBS=max node .prebuild/electron.js${electronBuildTargets} ${oldElectronBuildTargets} 
