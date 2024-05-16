@@ -279,7 +279,7 @@ jobs:
           python3 -m pip install packaging setuptools
           npm ci --ignore-scripts
           env JOBS=max node .prebuild/prebuild.js ${nodeBuildTargets}  ${oldNodeBuildTargets}
-          env JOBS=max node .prebuild/electron.js${electronBuildTargets} ${oldElectronBuildTargets} 
+          env JOBS=max node .prebuild/electron.js ${electronBuildTargets} ${oldElectronBuildTargets} 
       #       buildify doesn't work on Mac due to missing spawn_helper
       #      env JOBS=max node .prebuild/buildify.js
 
@@ -291,7 +291,7 @@ jobs:
           python3 -m pip install packaging setuptools
           npm ci --ignore-scripts
           env JOBS=max node .prebuild/prebuild.js ${nodeBuildTargets}  ${oldNodeBuildTargets}
-          env JOBS=max node .prebuild/electron.js${electronBuildTargets} ${oldElectronBuildTargets} 
+          env JOBS=max node .prebuild/electron.js ${electronBuildTargets} ${oldElectronBuildTargets} 
     #       buildify doesn't work on Mac due to missing spawn_helper
     #      env JOBS=max node .prebuild/buildify.js
 
