@@ -15,12 +15,12 @@ on:
 
 env:
   # Order reversed so newer versions are built first - Add new versions to the front (fail fast)
+  # electronBuildTargets version 28 has an issue
   oldNodeBuildTargets: -t 18.0.0 -t 17.0.1 -t 16.0.0 -t 15.0.0 -t 14.0.0 -t 13.0.0 -t 12.0.0 -t 11.0.0 -t 10.0.0
   nodeBuildTargets: -t 22.0.0 -t 21.0.0 -t 20.0.0 -t 19.0.0
   oldElectronBuildTargets: -t 19.0.0 -t 18.0.0 -t 17.0.0 -t 16.0.0 -t 15.0.0 -t 14.0.2 -t 13.0.0 -t 12.0.0 -t 11.0.0 -t 10.0.0 -t 9.0.0 -t 8.0.0 -t 7.0.0 -t 6.0.0 -t 5.0.0
-  electronBuildTargets: -t 29.0.0 -t 28.0.0 -t 27.0.0 -t 26.0.0 -t 25.0.0 -t 24.0.0 -t 23.0.0 -t 22.0.0 -t 21.0.0 -t 20.0.0
+  electronBuildTargets: -t 29.0.0 -t 27.0.0 -t 26.0.0 -t 25.0.0 -t 24.0.0 -t 23.0.0 -t 22.0.0 -t 21.0.0 -t 20.0.0
   winIA32nodeBuildTargets: -t 17.0.1 -t 16.0.0 -t 15.0.0 -t 14.0.0 -t 13.0.0 -t 12.0.0 -t 11.0.0 -t 10.0.0
-  # winIA32electronBuildTargets version 28 has an issue
   winIA32electronBuildTargets: -t 29.0.0 -t 27.0.0 -t 26.0.0 -t 25.0.0 -t 24.0.0 -t 23.0.0 -t 22.0.0 -t 21.0.0 -t 20.0.0
   ReleasePrebuildCount: 392
   ReleasePrebuildifyCount: 84
@@ -105,7 +105,7 @@ jobs:
             QEMU_ARCH: x86_64
             CMD: BuildAllCMD
             COUNT: 35
-            NPMCOUNT: 12
+            NPMCOUNT: 13
 
           - name: linuxmusl-arm
             os: ubuntu-latest
@@ -143,7 +143,7 @@ jobs:
             QEMU_ARCH: x86_64
             CMD: BuildNewCMD
             COUNT: 11
-            NPMCOUNT: 3
+            NPMCOUNT: 4
 
           - name: linux-ia32
             os: ubuntu-latest
@@ -152,7 +152,7 @@ jobs:
             QEMU_ARCH: i386
             CMD: BuildNewCMD
             COUNT: 11
-            NPMCOUNT: 3
+            NPMCOUNT: 4
 
           - name: linux-arm64
             os: ubuntu-latest
@@ -195,12 +195,12 @@ jobs:
           # Other OS's
 
           - name: darwin-x64
-            os: macOS-latest
+            os: macOS-13
             COUNT: 35
             NPMCOUNT: 11
 
           - name: darwin-arm64
-            os: [self-hosted, macOS, ARM64]
+            os: macOS-14
             COUNT: 35
             NPMCOUNT: 11
 
@@ -276,8 +276,7 @@ jobs:
       - name: macOS - Prebuild Binaries
         if: runner.os == 'macOS'
         run: |
-          brew install pipx
-          pipx install packaging setuptools
+          python3 -m pip install packaging setuptools
           npm ci --ignore-scripts
           env JOBS=max node .prebuild/prebuild.js ${nodeBuildTargets}  ${oldNodeBuildTargets}
           env JOBS=max node .prebuild/electron.js${electronBuildTargets} ${oldElectronBuildTargets} 
