@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# This is only used for local testing / debugging of build process
+# It is not used in the CI/CD pipeline
+
 set -e
 
 export oldNodeBuildTargets='-t 10.0.0 -t 11.0.0 -t 12.0.0 -t 13.0.0 -t 14.0.0 -t 15.0.0 -t 16.0.0 -t 17.0.1 -t 18.0.0'
@@ -156,8 +159,7 @@ echo
 
 if [ "`uname -m`" = "arm64"  ] && [ "`uname`" = "Darwin" ]; then
   npm install --ignore-scripts
-  node .prebuild/build.js
-  echo "Manually copy the MacOS/ARM binaries to the release"
+  node .prebuild/prebuild.js ${nodeBuildTargets} ${oldNodeBuildTargets}
 else
   echo "MacOS/ARM binaries need to be built on a ARM based Mac"
 fi
