@@ -31,7 +31,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Delete pr-* branches
-        uses: dawidd6/action-delete-branch@v3
+        uses: homebridge/action-delete-branch@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branches: "release-candidate"
@@ -114,7 +114,7 @@ jobs:
             QEMU_ARCH: arm
             CMD: BuildAllCMD
             COUNT: 19
-            NPMCOUNT: 12
+            NPMCOUNT: 7
 
           - name: linuxmusl-arm64
             os: ubuntu-latest
@@ -189,7 +189,7 @@ jobs:
             DOCKERFILE: Dockerfile.oldDebian
             QEMU_ARCH: aarch64
             CMD: BuildOldCMD
-            COUNT: 3
+            COUNT: 7
             NPMCOUNT: 3
 
           # Other OS's
@@ -201,7 +201,7 @@ jobs:
 
           - name: darwin-arm64
             os: macOS-14
-            COUNT: 35
+            COUNT: 19
             NPMCOUNT: 11
 
           - name: win32-ia32
@@ -325,7 +325,7 @@ jobs:
 
       - name: "Check file existence"
         id: check_files
-        uses: andstor/file-existence-action@v2
+        uses: andstor/file-existence-action@v3
         with:
           files: "prebuilds/*/node*node"
 
@@ -425,7 +425,7 @@ jobs:
 
       - name: "Check file existence"
         id: check_files
-        uses: andstor/file-existence-action@v2
+        uses: andstor/file-existence-action@v3
         with:
           files: "prebuilds/*/node-pty-prebuilt-multiarch-*-node-*-darwin-arm64.tar.gz"
 
