@@ -383,7 +383,7 @@ jobs:
       - name: Check Release prebuildify`s exist
         shell: bash
         run: |
-          fileCount=$(ls prebuilds/*/node*node | wc -l)
+          fileCount=$(ls prebuilds/*/*node | wc -l)
           echo "Release Prebuild count ${fileCount}"
           if [ "$fileCount" -ne ${ReleasePrebuildifyCount} ]; then echo "::error::Release Prebuildify count ${fileCount}, expected ${ReleasePrebuildifyCount}"; exit 1; else echo "::notice::Release Prebuildify count ${fileCount}, expected ${ReleasePrebuildifyCount}"; fi
 
