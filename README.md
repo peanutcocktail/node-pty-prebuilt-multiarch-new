@@ -41,7 +41,7 @@ If a corresponding prebuilt package is not found, `node-gyp` is invoked to build
 | Linux (musl)  | x64, armv6, aarch64       |
 | Windows       | ia32, x64                 |
 
-We only provide prebuilt binaries for Node.js 10 and Electron 5.0.0 or higher.
+We only provide prebuilt binaries for Node.js 16 and Electron 16.0.0 or higher.  Pls note that prebuilds for Electron 28 are not supplied due to build issues.
 
 ## Build / Package
 
@@ -56,10 +56,9 @@ When this occurs just re-run. This is due to concurrency issues between the step
 A typical run has 3-4 steps fail.
 
 1. Create branch `release-candidate` if not existing (the script deletes it before starting and will fail if it isn't present)
-2. Start macOS ARM 64 local runner
-3. Ensure version tag within package.json reflects version you want to publish, please note beta tags are added by the action.
-4. Run Action `Run prebuild's and Create GitHub and NPM release`, and select branch you wish to publish, and if it needs to be BETA tagged and versioned
-5. This will run for about an hour, and create a GitHub release with the prebuild artifacts attached, and a npm release with the prebuild artifacts attached
+2. Ensure version tag within package.json reflects version you want to publish, please note beta tags are added by the action.
+3. Run Action `Run prebuild's and Create GitHub and NPM release`, and select branch you wish to publish, and if it needs to be BETA tagged and versioned
+4. This will run for about an hour, and create a GitHub release with the prebuild artifacts attached, and a npm release with the prebuild artifacts attached
 
 ## License
 
