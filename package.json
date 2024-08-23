@@ -10,7 +10,7 @@
   "types": "./typings/node-pty.d.ts",
   "repository": {
     "type": "git",
-    "url": "git://github.com/homebridge/node-pty-prebuilt-multiarch.git"
+    "url": "git://github.com/peanutcocktail/node-pty-prebuilt-multiarch-new.git"
   },
   "files": [
     "binding.gyp",
@@ -25,9 +25,9 @@
     "third_party/",
     "typings/"
   ],
-  "homepage": "https://github.com/homebridge/node-pty-prebuilt-multiarch",
+  "homepage": "https://github.com/peanutcocktail/node-pty-prebuilt-multiarch-new",
   "bugs": {
-    "url": "https://github.com/homebridge/node-pty-prebuilt-multiarch/issues"
+    "url": "https://github.com/peanutcocktail/node-pty-prebuilt-multiarch/issues"
   },
   "keywords": [
     "pty",
