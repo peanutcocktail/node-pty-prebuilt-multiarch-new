@@ -53,7 +53,6 @@
     "prebuild-install": "^7.1.2"
   },
   "devDependencies": {
-    "eslint": "^6.8.0",
     "@types/mocha": "^10.0.6",
     "@types/node": "^20.12.12",
     "@typescript-eslint/eslint-plugin": "^7.10.0",
