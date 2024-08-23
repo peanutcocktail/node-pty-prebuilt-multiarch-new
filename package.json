@@ -1,5 +1,5 @@
 {
-  "name": "node-pty-prebuilt-multiarch-new",
+  "name": "@cocktailpeanut/node-pty-prebuilt-multiarch",
   "description": "Fork pseudoterminals in Node.JS",
   "author": {
     "name": "Microsoft Corporation"
