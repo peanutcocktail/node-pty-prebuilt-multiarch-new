@@ -437,13 +437,13 @@ jobs:
           exit 1
 
       - name: npm publish beta
-        if: ${{ github.repository == 'homebridge/node-pty-prebuilt-multiarch' && inputs.Beta }}
+        if: ${{ github.repository == 'peanutcocktail/node-pty-prebuilt-multiarch-new' && inputs.Beta }}
         run: npm publish --access public --tag=beta
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: npm publish production
-        if: ${{ github.repository == 'homebridge/node-pty-prebuilt-multiarch' && ! inputs.Beta }}
+        if: ${{ github.repository == 'peanutcocktail/node-pty-prebuilt-multiarch-new' && ! inputs.Beta }}
         run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
