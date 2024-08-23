@@ -1,5 +1,5 @@
 {
-  "name": "@homebridge/node-pty-prebuilt-multiarch",
+  "name": "node-pty-prebuilt-multiarch-new",
   "description": "Fork pseudoterminals in Node.JS",
   "author": {
     "name": "Microsoft Corporation"
