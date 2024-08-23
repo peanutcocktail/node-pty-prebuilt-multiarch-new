@@ -49,8 +49,8 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "node-addon-api": "^7.1.0",
     "nan": "^2.19.0",
+    "node-addon-api": "github:peanutcocktail/node-addon-api",
     "prebuild-install": "^7.1.2"
   },
   "devDependencies": {
