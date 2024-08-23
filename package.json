@@ -18,11 +18,12 @@
     "scripts/",
     "src/",
     "deps/",
-    "typings/",
     "prebuilds/linux-x64",
     "prebuilds/linux-ia32",
     "prebuilds/linux-arm",
-    "prebuilds/linux-arm64"
+    "prebuilds/linux-arm64",
+    "third_party/",
+    "typings/"
   ],
   "homepage": "https://github.com/homebridge/node-pty-prebuilt-multiarch",
   "bugs": {
@@ -52,6 +53,7 @@
     "prebuild-install": "^7.1.2"
   },
   "devDependencies": {
+    "eslint": "^6.8.0",
     "@types/mocha": "^10.0.6",
     "@types/node": "^20.12.12",
     "@typescript-eslint/eslint-plugin": "^7.10.0",
@@ -63,6 +65,7 @@
     "prebuild": "^13.0.1",
     "prebuildify": "^5.0.1",
     "ps-list": "=7.2.0",
-    "typescript": "^5.4.5"
+    "typescript": "^5.4.5",
+    "node-addon-api": "^7.1.0"
   }
 }
